@@ -56,8 +56,14 @@
         body {
             font-family: 'Inter Tight', sans-serif;
             background: var(--color-bg-dark);
-            color: var(--color-text-dark);
+            color: var(--color-text-light);
             overflow-x: hidden;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* ===========================================
@@ -72,19 +78,33 @@
 
         .h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2rem, 6vw, 4rem);
-            line-height: 1.1;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1;
             letter-spacing: -0.01em;
+        }
+
+        .h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            line-height: 1.1;
         }
 
         .text-base {
             font-size: 1rem;
-            line-height: 1.7;
+            line-height: 1.6;
+            opacity: 0.7;
         }
 
         .text-sm {
             font-size: 0.875rem;
-            line-height: 1.6;
+            line-height: 1.5;
+        }
+
+        .text-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
 
         /* ===========================================
@@ -93,39 +113,48 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            padding: 1rem 2rem;
+            padding: 0.625rem 0.625rem 0.625rem 1.25rem;
             font-family: 'Inter Tight', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.875rem;
+            font-weight: 500;
             text-decoration: none;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 4px;
+            border-radius: 50px;
         }
 
         .btn-primary {
-            background: var(--color-primary);
-            color: var(--color-text-light);
+            background: var(--color-text-light);
+            color: var(--color-text-dark);
         }
 
         .btn-primary:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(45, 90, 61, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.2);
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--color-primary);
-            border: 2px solid var(--color-primary);
+        .btn-circle {
+            width: 36px;
+            height: 36px;
+            background: var(--color-text-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
         }
 
-        .btn-outline:hover {
-            background: var(--color-primary);
-            color: var(--color-text-light);
+        .btn:hover .btn-circle {
+            transform: rotate(-45deg);
+        }
+
+        .btn-circle svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--color-text-light);
+            stroke-width: 2;
         }
 
         /* ===========================================
@@ -147,7 +176,7 @@
         }
 
         .header.scrolled {
-            background: rgba(45, 90, 61, 0.95);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
         }
 
@@ -159,21 +188,29 @@
             text-decoration: none;
         }
 
-        .header .btn {
-            padding: 0.625rem 1.25rem;
-            font-size: 0.875rem;
-            background: var(--color-text-light);
-            color: var(--color-text-dark);
-            border-radius: 50px;
-        }
-
-        .header .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+        @media (max-width: 600px) {
+            .header {
+                padding: 1rem 1.25rem;
+            }
+            .header-logo {
+                font-size: 1.25rem;
+            }
+            .header .btn {
+                padding: 0.5rem 0.5rem 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+            .header .btn-circle {
+                width: 28px;
+                height: 28px;
+            }
+            .header .btn-circle svg {
+                width: 12px;
+                height: 12px;
+            }
         }
 
         /* ===========================================
-           SECTION 1: HERO
+           HERO SECTION (Video Text Mask)
            =========================================== */
         .hero {
             position: relative;
@@ -226,6 +263,19 @@
             letter-spacing: 0.02em;
         }
 
+        /* Fallback background for when video doesn't load */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a4a2e 0%, #2d5a3d 50%, #3a7a4f 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%231a4a2e"/><stop offset="50%" style="stop-color:%232d5a3d"/><stop offset="100%" style="stop-color:%233a7a4f"/></linearGradient></defs><rect fill="url(%23g)" width="100" height="100"/></svg>');
+            background-size: cover;
+            z-index: 0;
+        }
+
         .hero-content {
             text-align: center;
             margin-top: 2rem;
@@ -234,7 +284,7 @@
         .hero-tagline {
             font-family: 'Bebas Neue', sans-serif;
             font-size: clamp(2.5rem, 8vw, 5rem);
-            color: var(--color-primary-light);
+            color: var(--color-accent);
             letter-spacing: 0.05em;
             line-height: 1;
             margin-bottom: 0.5rem;
@@ -258,7 +308,6 @@
             align-items: center;
             gap: 0.5rem;
             opacity: 0.6;
-            color: var(--color-text-light);
         }
 
         .hero-scroll-indicator span {
@@ -279,101 +328,323 @@
             50% { opacity: 1; transform: scaleY(1.2); }
         }
 
+        @media (max-width: 768px) {
+            .hero {
+                padding: 1.5rem;
+                min-height: 100svh;
+            }
+            .hero-content {
+                margin-top: 1.5rem;
+            }
+            .hero-tagline {
+                font-size: clamp(2rem, 10vw, 3.5rem);
+            }
+            .hero-subtitle {
+                font-size: clamp(1.25rem, 5vw, 2rem);
+            }
+            .masked-video-container {
+                aspect-ratio: 16 / 6;
+            }
+            .mask-text {
+                font-size: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1rem;
+            }
+            .hero-tagline {
+                font-size: 1.75rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .mask-text {
+                font-size: 150px;
+            }
+            .hero-scroll-indicator {
+                bottom: 1.5rem;
+            }
+            .hero-scroll-indicator span {
+                font-size: 0.6rem;
+            }
+            .scroll-line {
+                height: 30px;
+            }
+        }
+
         /* ===========================================
-           SECTION 2: ABOUT / MISSION
+           SECTION 2: ABOUT / MISSION (Side by Side)
            =========================================== */
-        .about-section {
+        .side-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: 80vh;
+            min-height: 100vh;
+            position: relative;
         }
 
         @media (max-width: 900px) {
-            .about-section {
+            .side-section {
                 grid-template-columns: 1fr;
             }
         }
 
-        .about-left {
+        .side-left {
+            position: relative;
             background: var(--color-tan);
             padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            min-height: 50vh;
+            overflow: hidden;
         }
 
-        .about-left h2 {
+        /* Background image with overlay */
+        .side-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        /* Decorative accent line */
+        .side-left::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 120px;
+            background: var(--color-primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .side-left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .side-left h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
             color: var(--color-primary);
             line-height: 1.1;
-            margin-bottom: 0;
+            position: relative;
         }
 
-        .about-right {
+        /* Decorative quote mark */
+        .side-left h2::before {
+            content: '"';
+            position: absolute;
+            top: -0.5em;
+            left: -0.3em;
+            font-size: 4em;
+            color: var(--color-primary);
+            opacity: 0.15;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .side-right {
             background: var(--color-bg-light);
+            color: var(--color-text-dark);
             padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
 
-        .about-right h3 {
-            font-size: 1.25rem;
+        /* Subtle pattern overlay */
+        .side-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--color-primary) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .side-right-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .side-right h3 {
+            font-size: 1.15rem;
             font-weight: 600;
             color: var(--color-primary);
             margin-bottom: 1.5rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            padding-left: 1rem;
+            border-left: 3px solid var(--color-accent);
         }
 
-        .about-right p {
+        .side-right p {
             font-size: 0.95rem;
             line-height: 1.8;
             color: var(--color-text-dark);
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
+            opacity: 0.75;
+            margin-bottom: 1.25rem;
         }
 
-        .about-right p:last-of-type {
+        .side-right p:last-of-type {
             margin-bottom: 0;
         }
 
-        .about-highlight {
+        .side-highlight {
             font-size: 1rem;
             font-weight: 600;
             color: var(--color-text-dark);
-            margin-top: 2rem;
+            opacity: 1 !important;
+            margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--color-border-dark);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .side-highlight::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Decorative corner accents */
+        .side-section-wrapper {
+            position: relative;
+        }
+
+        .corner-accent {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--color-accent);
+            opacity: 0.3;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-accent.top-left {
+            top: 2rem;
+            left: 2rem;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-accent.bottom-right {
+            bottom: 2rem;
+            right: 2rem;
+            border-left: none;
+            border-top: none;
+        }
+
+        @media (max-width: 900px) {
+            .corner-accent {
+                display: none;
+            }
+            .side-left::after {
+                display: none;
+            }
+            .side-left {
+                padding: 3rem 2rem;
+                min-height: 40vh;
+            }
+            .side-right {
+                padding: 3rem 2rem;
+            }
+            .side-left h2::before {
+                font-size: 3em;
+                top: -0.4em;
+                left: -0.2em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .side-left {
+                padding: 2.5rem 1.5rem;
+            }
+            .side-right {
+                padding: 2.5rem 1.5rem;
+            }
+            .side-left h2 {
+                font-size: 1.75rem;
+            }
+            .side-right h3 {
+                font-size: 1rem;
+                padding-left: 0.75rem;
+            }
+            .side-right p {
+                font-size: 0.9rem;
+            }
         }
 
         /* ===========================================
            SECTION 3: AUDIENCE & SIGN UP
            =========================================== */
         .audience-section {
-            background: var(--color-primary);
-            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a3d2a 0%, var(--color-primary) 50%, #1a3d2a 100%);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .audience-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--color-text-light);
+        /* Animated gradient overlay */
+        .audience-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(196, 165, 116, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(196, 165, 116, 0.08) 0%, transparent 50%);
+            animation: gradientPulse 8s ease-in-out infinite;
         }
 
-        .audience-header h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 400;
-            letter-spacing: 0.05em;
+        @keyframes gradientPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Floating particles container */
+        .particles-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .audience-content {
+            position: relative;
+            z-index: 1;
         }
 
         .audience-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            max-width: 1000px;
+            gap: 1.5rem;
+            max-width: 1100px;
             margin: 0 auto 4rem;
+            perspective: 1000px;
         }
 
         @media (max-width: 900px) {
@@ -384,81 +655,275 @@
 
         @media (max-width: 500px) {
             .audience-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+            }
+            .audience-card {
+                padding: 1.25rem 1rem;
+            }
+            .audience-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 1rem;
+            }
+            .audience-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+            .audience-card h4 {
+                font-size: 1rem;
+            }
+            .audience-card p {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+            .card-number {
+                font-size: 1.5rem;
+                top: 0.75rem;
+                right: 0.75rem;
             }
         }
 
+        @media (max-width: 900px) {
+            .audience-section {
+                padding: 4rem 1.5rem;
+            }
+            .signup-cta {
+                margin: 0 1rem;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .audience-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                max-width: 280px;
+            }
+            .audience-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Glassmorphism cards with gradient border */
         .audience-card {
-            background: var(--color-primary-light);
-            border-radius: 8px;
-            padding: 1.5rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* Animated gradient border */
+        .audience-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--color-accent), transparent 50%, var(--color-accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Glow effect on hover */
+        .audience-card::after {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            transform: translateZ(-1px);
         }
 
         .audience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3),
+                        0 0 30px rgba(196, 165, 116, 0.2);
         }
 
+        .audience-card:hover::before {
+            opacity: 1;
+        }
+
+        .audience-card:hover::after {
+            opacity: 0.15;
+        }
+
+        /* Animated icon container */
         .audience-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 1rem;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        /* Icon background ring */
+        .audience-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid var(--color-accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            transition: all 0.4s ease;
+        }
+
+        /* Spinning accent ring */
+        .audience-icon::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 2px dashed var(--color-accent);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: spinRing 10s linear infinite;
+        }
+
+        @keyframes spinRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .audience-card:hover .audience-icon::before {
+            transform: scale(1.1);
+            opacity: 0.6;
+            box-shadow: 0 0 20px rgba(196, 165, 116, 0.4);
+        }
+
+        .audience-card:hover .audience-icon::after {
+            opacity: 0.4;
         }
 
         .audience-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--color-tan);
+            width: 36px;
+            height: 36px;
+            stroke: var(--color-accent);
             fill: none;
             stroke-width: 1.5;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .audience-card:hover .audience-icon svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(196, 165, 116, 0.6));
         }
 
         .audience-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
             color: var(--color-text-light);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover h4 {
+            color: var(--color-accent);
         }
 
         .audience-card p {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--color-text-light);
-            opacity: 0.8;
+            opacity: 0.7;
             line-height: 1.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .audience-card:hover p {
+            opacity: 0.9;
+        }
+
+        /* Card number indicator */
+        .card-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--color-accent);
+            opacity: 0.15;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover .card-number {
+            opacity: 0.4;
+            transform: scale(1.1);
         }
 
         /* Sign Up CTA */
         .signup-cta {
-            background: var(--color-bg-light);
-            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 550px;
             margin: 0 auto;
-            padding: 3rem;
-            text-align: center;
-            border-radius: 8px;
+            padding: 2.5rem 2.5rem;
+            text-align: left;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Decorative accent */
+        .signup-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary));
         }
 
         .signup-cta h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--color-text-dark);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .signup-cta p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--color-text-dark);
-            opacity: 0.7;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            opacity: 0.6;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
         }
 
         .signup-cta .btn {
-            min-width: 200px;
+            background: var(--color-text-dark);
+            color: var(--color-text-light);
+        }
+
+        .signup-cta .btn:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .signup-cta .btn-circle {
+            background: var(--color-text-light);
+        }
+
+        .signup-cta .btn-circle svg {
+            stroke: var(--color-text-dark);
         }
 
         /* ===========================================
@@ -482,14 +947,14 @@
            =========================================== */
         .reveal-up {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(60px);
         }
 
         /* Page Loader */
         .loader {
             position: fixed;
             inset: 0;
-            background: var(--color-primary);
+            background: var(--color-bg-dark);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -500,11 +965,29 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2rem;
             letter-spacing: 0.1em;
-            color: var(--color-text-light);
+        }
+
+        /* Video loading state */
+        .video-loading .masked-video-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1a4a2e 0%, #2d5a3d 50%, #3a7a4f 100%);
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .video-ready .masked-video-container::after {
+            display: none;
         }
     </style>
 </head>
-<body>
+<body class="video-loading">
     <!-- Loader -->
     <div class="loader">
         <span class="loader-text">STOWE</span>
@@ -513,8 +996,13 @@
     <!-- Header -->
     <header class="header">
         <a href="#" class="header-logo">STOWE</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform?pli=1" target="_blank" class="btn">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn btn-primary">
             Join Waitlist
+            <span class="btn-circle">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+            </span>
         </a>
     </header>
 
@@ -522,7 +1010,8 @@
     <section class="hero">
         <div class="video-text-mask">
             <div class="masked-video-container">
-                <video id="bgVideo" autoplay muted loop playsinline>
+                <div class="video-fallback"></div>
+                <video id="bgVideo" autoplay muted loop playsinline preload="auto" webkit-playsinline>
                     <source src="vecteezy_walking-in-tropical-forest-with-small-creek-flowing-over-the_4416948.mp4" type="video/mp4">
                 </video>
                 <svg viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid slice">
@@ -548,81 +1037,98 @@
     </section>
 
     <!-- SECTION 2: About / Mission -->
-    <section class="about-section">
-        <div class="about-left reveal-up">
-            <h2>Because your health journey should be just that – yours.</h2>
-        </div>
-        <div class="about-right">
-            <h3 class="reveal-up">We're building an app to empower individual Canadians to take back control of their own health journey.</h3>
-            <p class="reveal-up">With nearly 1 in every 4 Canadians lacking a primary care physician, and a fragmented health and wellness experience overall, it's time for a better way.</p>
-            <p class="reveal-up">Our platform will allow for all types of health and wellness data to be saved in one fortified place and – upon voluntary opt-in – to be analyzed by a secure AI to surface valuable insights.</p>
-            <p class="about-highlight reveal-up">We're building Stowe Health for all Canadians, including...</p>
-        </div>
-    </section>
+    <div class="side-section-wrapper">
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+        <section class="side-section">
+            <div class="side-left">
+                <div class="side-left-content">
+                    <h2 class="reveal-up">Because your health journey should be just that – yours.</h2>
+                </div>
+            </div>
+            <div class="side-right">
+                <div class="side-right-content">
+                    <h3 class="reveal-up">We're building an app to empower individual Canadians to take back control of their own health journey.</h3>
+                    <p class="reveal-up">With nearly 1 in every 4 Canadians lacking a primary care physician, and a fragmented health and wellness experience overall, it's time for a better way.</p>
+                    <p class="reveal-up">Our platform will allow for all types of health and wellness data to be saved in one fortified place and – upon voluntary opt-in – to be analyzed by a secure AI to surface valuable insights.</p>
+                    <p class="side-highlight reveal-up">We're building Stowe Health for all Canadians, including...</p>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- SECTION 3: Audience & Sign Up -->
     <section class="audience-section">
-        <div class="audience-grid">
-            <div class="audience-card reveal-up">
-                <div class="audience-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                    </svg>
-                </div>
-                <h4>Individuals</h4>
-                <p>Who want to actually understand their health and manage it more easily</p>
-            </div>
-            <div class="audience-card reveal-up">
-                <div class="audience-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                </div>
-                <h4>Caregivers</h4>
-                <p>Who are tasked with maintaining both their own health and others' health too</p>
-            </div>
-            <div class="audience-card reveal-up">
-                <div class="audience-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                </div>
-                <h4>Parents</h4>
-                <p>Who need to maintain a complete, portable record for their kids</p>
-            </div>
-            <div class="audience-card reveal-up">
-                <div class="audience-icon">
-                    <svg viewBox="0 0 24 24">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                        <path d="M8 14h.01"/>
-                        <path d="M12 14h.01"/>
-                        <path d="M16 14h.01"/>
-                        <path d="M8 18h.01"/>
-                        <path d="M12 18h.01"/>
-                    </svg>
-                </div>
-                <h4>Proactive planners</h4>
-                <p>Who seek to optimize their health before something goes wrong</p>
-            </div>
-        </div>
+        <!-- Floating particles -->
+        <div class="particles-container" id="particles"></div>
 
-        <!-- Sign Up CTA -->
-        <div class="signup-cta reveal-up">
-            <h3>Be the first to know</h3>
-            <p>Get notified when Stowe launches. Sign up for early access and other exciting product updates.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform?pli=1" target="_blank" class="btn btn-primary">
-                Sign Up Now
-            </a>
+        <div class="audience-content">
+            <div class="audience-grid">
+                <div class="audience-card" data-tilt>
+                    <span class="card-number">01</span>
+                    <div class="audience-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Individuals</h4>
+                    <p>Who want to actually understand their health and manage it more easily</p>
+                </div>
+                <div class="audience-card" data-tilt>
+                    <span class="card-number">02</span>
+                    <div class="audience-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h4>Caregivers</h4>
+                    <p>Who are tasked with maintaining both their own health and others' health too</p>
+                </div>
+                <div class="audience-card" data-tilt>
+                    <span class="card-number">03</span>
+                    <div class="audience-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h4>Parents</h4>
+                    <p>Who need to maintain a complete, portable record for their kids</p>
+                </div>
+                <div class="audience-card" data-tilt>
+                    <span class="card-number">04</span>
+                    <div class="audience-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h4>Proactive planners</h4>
+                    <p>Who seek to optimize their health before something goes wrong</p>
+                </div>
+            </div>
+
+            <!-- Sign Up CTA -->
+            <div class="signup-cta">
+                <h3>Be the first to know</h3>
+                <p>Get notified when Stowe launches. Sign up for early access and other exciting product updates.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn">
+                    Sign Up Now
+                    <span class="btn-circle">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -664,10 +1170,59 @@
             }
         });
 
+        // Video handling with mobile support
+        const video = document.getElementById('bgVideo');
+
+        function attemptVideoPlay() {
+            if (video) {
+                // Set video properties for mobile
+                video.muted = true;
+                video.playsInline = true;
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+
+                const playPromise = video.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Video started playing
+                        document.body.classList.remove('video-loading');
+                        document.body.classList.add('video-ready');
+                        console.log('Video playing successfully');
+                    }).catch(error => {
+                        // Auto-play was prevented
+                        console.log('Video autoplay prevented:', error);
+                        document.body.classList.remove('video-loading');
+                        // Video will show fallback gradient
+                    });
+                }
+            }
+        }
+
+        // Try to play video when it has enough data
+        if (video) {
+            video.addEventListener('loadeddata', () => {
+                console.log('Video data loaded');
+                attemptVideoPlay();
+            });
+
+            video.addEventListener('canplay', () => {
+                console.log('Video can play');
+                attemptVideoPlay();
+            });
+
+            // Also try on user interaction (for mobile)
+            document.addEventListener('touchstart', attemptVideoPlay, { once: true });
+            document.addEventListener('click', attemptVideoPlay, { once: true });
+        }
+
         // Page load animation
         window.addEventListener('load', () => {
             const loader = document.querySelector('.loader');
             const tl = gsap.timeline();
+
+            // Try to play video immediately
+            attemptVideoPlay();
 
             tl.to(loader, {
                 opacity: 0,
@@ -720,20 +1275,144 @@
             });
         });
 
-        // Stagger animations for audience cards
-        gsap.utils.toArray('.audience-card').forEach((card, i) => {
-            gsap.to(card, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                delay: i * 0.1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: '.audience-grid',
-                    start: 'top 80%',
-                }
+        // ==========================================
+        // SECTION 3: Enhanced Animations
+        // ==========================================
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                container.appendChild(particle);
+
+                // Animate each particle
+                gsap.to(particle, {
+                    y: -100 - Math.random() * 100,
+                    x: (Math.random() - 0.5) * 100,
+                    opacity: 0,
+                    duration: 4 + Math.random() * 4,
+                    repeat: -1,
+                    delay: Math.random() * 4,
+                    ease: 'none',
+                    onRepeat: function() {
+                        gsap.set(particle, {
+                            y: 0,
+                            x: 0,
+                            opacity: Math.random() * 0.3 + 0.1,
+                            left: Math.random() * 100 + '%',
+                            top: 100 + '%'
+                        });
+                    }
+                });
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // 3D Tilt effect for cards
+        const cards = document.querySelectorAll('.audience-card[data-tilt]');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                gsap.to(card, {
+                    rotateX: rotateX,
+                    rotateY: rotateY,
+                    duration: 0.3,
+                    ease: 'power2.out',
+                    transformPerspective: 1000
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.5,
+                    ease: 'elastic.out(1, 0.5)'
+                });
             });
         });
+
+        // Enhanced stagger animations for audience cards
+        gsap.set('.audience-card', { opacity: 0, y: 80, rotateX: -15 });
+
+        ScrollTrigger.create({
+            trigger: '.audience-grid',
+            start: 'top 80%',
+            onEnter: () => {
+                gsap.to('.audience-card', {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    duration: 1,
+                    stagger: 0.15,
+                    ease: 'power3.out'
+                });
+            }
+        });
+
+        // Sign-up CTA animation
+        gsap.set('.signup-cta', { opacity: 0, y: 50, scale: 0.95 });
+
+        ScrollTrigger.create({
+            trigger: '.signup-cta',
+            start: 'top 85%',
+            onEnter: () => {
+                gsap.to('.signup-cta', {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: 'back.out(1.2)'
+                });
+            }
+        });
+
+        // Magnetic effect on sign-up button
+        const signupBtn = document.querySelector('.signup-cta .btn');
+        if (signupBtn) {
+            signupBtn.addEventListener('mousemove', (e) => {
+                const rect = signupBtn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                gsap.to(signupBtn, {
+                    x: x * 0.2,
+                    y: y * 0.2,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            signupBtn.addEventListener('mouseleave', () => {
+                gsap.to(signupBtn, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'elastic.out(1, 0.5)'
+                });
+            });
+        }
     </script>
 </body>
 </html>
