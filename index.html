@@ -173,12 +173,12 @@
             height: 12px;
         }
 
-        /* Hide large Join Waitlist button, show compact signup */
-        .header-nav > .btn:not(.mobile-signup-btn) {
+        /* Desktop: show Join Waitlist, hide Sign Up */
+        .mobile-signup-btn {
             display: none;
         }
 
-        .mobile-signup-btn {
+        .desktop-signup-btn {
             display: inline-flex;
         }
 
@@ -217,6 +217,7 @@
             display: flex;
             align-items: center;
             gap: 2rem;
+            opacity: 1 !important;
         }
 
         .header-links {
@@ -396,13 +397,18 @@
             .header {
                 background: rgba(45, 90, 61, 0.95);
                 backdrop-filter: blur(10px);
-                opacity: 1 !important;
-                transform: none !important;
             }
             .header-nav {
                 display: flex;
                 gap: 0.75rem;
                 align-items: center;
+            }
+            /* Mobile: show Sign Up, hide Join Waitlist */
+            .desktop-signup-btn {
+                display: none;
+            }
+            .mobile-signup-btn {
+                display: inline-flex;
             }
             /* Hide some nav elements on mobile */
             .header-links .header-dot,
@@ -1289,18 +1295,19 @@
                 <span class="header-dot"></span>
                 <a href="#audience" class="header-link">Who It's For</a>
             </div>
-            <!-- Compact Sign Up button -->
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn btn-primary btn-sm mobile-signup-btn">
-                Sign Up
+            <!-- Desktop: Join Waitlist button -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn btn-primary btn-sm desktop-signup-btn">
+                Join Waitlist
                 <span class="btn-circle btn-circle-sm">
                     <svg viewBox="0 0 24 24" fill="none">
                         <path d="M7 17L17 7M17 7H7M17 7v10"/>
                     </svg>
                 </span>
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn btn-primary">
-                Join Waitlist
-                <span class="btn-circle">
+            <!-- Mobile: Sign Up button -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdCtnEN9QpLNlcANbbgA58SkFV4MICewTyulF1FdF14zL_NDA/viewform" target="_blank" class="btn btn-primary btn-sm mobile-signup-btn">
+                Sign Up
+                <span class="btn-circle btn-circle-sm">
                     <svg viewBox="0 0 24 24" fill="none">
                         <path d="M7 17L17 7M17 7H7M17 7v10"/>
                     </svg>
