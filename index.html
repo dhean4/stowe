@@ -413,23 +413,43 @@
             width: 100%;
             max-width: 1000px;
             aspect-ratio: 16 / 5;
+            overflow: hidden;
+        }
+
+        /* Overlay to hide edge artifacts */
+        .masked-video-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .masked-video-container video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
             object-fit: cover;
+            border: none;
+            outline: none;
         }
 
         .masked-video-container svg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border: none;
+            outline: none;
+            display: block;
+        }
+
+        .masked-video-container svg rect {
+            stroke: none;
+            outline: none;
         }
 
         .mask-text {
@@ -442,10 +462,10 @@
         /* Fallback background for when video doesn't load */
         .video-fallback {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
             background: linear-gradient(135deg, #1a4a2e 0%, #2d5a3d 25%, #3a7a4f 50%, #2d5a3d 75%, #1a4a2e 100%);
             background-size: 400% 400%;
             animation: gradientMove 8s ease infinite;
@@ -525,16 +545,20 @@
                 margin-top: 1.5rem;
             }
             .hero-tagline {
-                font-size: clamp(2rem, 10vw, 3.5rem);
+                font-size: clamp(2.5rem, 12vw, 4rem);
             }
             .hero-subtitle {
-                font-size: clamp(1.25rem, 5vw, 2rem);
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
             }
             .masked-video-container {
                 aspect-ratio: 16 / 6;
+                max-width: 100%;
+            }
+            .masked-video-container::after {
+                border-width: 6px;
             }
             .mask-text {
-                font-size: 200px;
+                font-size: 220px;
             }
         }
 
@@ -543,13 +567,20 @@
                 padding: 1rem;
             }
             .hero-tagline {
-                font-size: 1.75rem;
+                font-size: clamp(2rem, 11vw, 3rem);
             }
             .hero-subtitle {
-                font-size: 1.1rem;
+                font-size: clamp(1.25rem, 5vw, 1.75rem);
+            }
+            .masked-video-container {
+                aspect-ratio: 16 / 6.5;
+                max-width: 100%;
+            }
+            .masked-video-container::after {
+                border-width: 7px;
             }
             .mask-text {
-                font-size: 150px;
+                font-size: 200px;
             }
             .hero-scroll-indicator {
                 bottom: 1.5rem;
@@ -667,21 +698,21 @@
         }
 
         .side-right h3 {
-            font-size: 1.15rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: var(--color-primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.5;
-            padding-left: 1rem;
-            border-left: 3px solid var(--color-accent);
+            padding-left: 1.25rem;
+            border-left: 4px solid var(--color-accent);
         }
 
         .side-right p {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             color: var(--color-text-dark);
             opacity: 0.75;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.75rem;
         }
 
         .side-right p:last-of-type {
@@ -771,11 +802,11 @@
                 font-size: 1.75rem;
             }
             .side-right h3 {
-                font-size: 1rem;
-                padding-left: 0.75rem;
+                font-size: 1.15rem;
+                padding-left: 1rem;
             }
             .side-right p {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
         }
 
@@ -824,6 +855,16 @@
         .audience-content {
             position: relative;
             z-index: 1;
+        }
+
+        .audience-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--color-text-light);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
         }
 
         .audience-grid {
@@ -1284,7 +1325,6 @@
                     <h3 class="reveal-up">We're building an app to empower individual Canadians to take back control of their own health journey.</h3>
                     <p class="reveal-up">With nearly 1 in every 4 Canadians lacking a primary care physician, and a fragmented health and wellness experience overall, it's time for a better way.</p>
                     <p class="reveal-up">Our platform will allow for all types of health and wellness data to be saved in one fortified place and – upon voluntary opt-in – to be analyzed by a secure AI to surface valuable insights.</p>
-                    <p class="side-highlight reveal-up">We're building Stowe Health for all Canadians, including...</p>
                 </div>
             </div>
         </section>
@@ -1296,6 +1336,7 @@
         <div class="particles-container" id="particles"></div>
 
         <div class="audience-content">
+            <h2 class="audience-header">We're building Stowe Health for all Canadians, including...</h2>
             <div class="audience-grid">
                 <div class="audience-card" data-tilt>
                     <span class="card-number">01</span>
@@ -1627,6 +1668,22 @@
                     ease: 'elastic.out(1, 0.5)'
                 });
             });
+        });
+
+        // Audience header animation
+        gsap.set('.audience-header', { opacity: 0, y: 40 });
+
+        ScrollTrigger.create({
+            trigger: '.audience-header',
+            start: 'top 85%',
+            onEnter: () => {
+                gsap.to('.audience-header', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+            }
         });
 
         // Enhanced stagger animations for audience cards
